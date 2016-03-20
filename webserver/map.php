@@ -10,7 +10,7 @@ echo '
 <meta content="IE=edge" http-equiv="X-UA-Compatible" />
 <title>Flight Map</title>
 
-<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+<script src="//maps.googleapis.com/maps/api/js?libraries=geometry"></script>
 <script>
 var map_types = {
 	vfrc: {
