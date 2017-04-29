@@ -142,42 +142,6 @@ function initialize() {
 		document.getElementById("track_map_toolbar"));
 }
 
-function showLine(pointa, pointb, map_object, draw_markers) {
-	var lineSymbol = {
-		path: "M 0,-1 0,1",
-		strokeOpacity: 1,
-		strokeWeight: 2,
-		scale: 5
-	};
-	var routeline = new google.maps.Polyline({
-		path: [pointa, pointb],
-		strokeColor: "#347AED",
-		strokeOpacity: 0.3,
-		icons: [{
-			icon: lineSymbol,
-			offset: "0",
-			repeat: "15px"
-		}],
-		strokeWeight: 2,
-		geodesic: true,
-		map: map_object
-	});
-
-	if (draw_markers == true) {
-		var marker1 = new google.maps.Marker({
-			position: pointa,
-			map: map_object,
-			icon: "origin.png",
-			title: "Start"
-		});
-		var marker2 = new google.maps.Marker({
-			position: pointb,
-			map: map_object,
-			icon: "destination.png",
-			title: "End"
-		});
-	}
-}
 
 function setBounds(pointa, pointb, map_object) {
 	var bounds = new google.maps.LatLngBounds();
@@ -211,13 +175,13 @@ function showTrack(track, pointa, pointb, map_object) {
 	var marker1 = new google.maps.Marker({
 		position: pointa,
 		map: map_object,
-		icon: "origin.png",
+		icon: "half_origin.png",
 		title: "Start"
 	});
 	var marker2 = new google.maps.Marker({
 		position: pointb,
 		map: map_object,
-		icon: "destination.png",
+		icon: "half_destination.png",
 		title: "End"
 	});
 	var bounds = new google.maps.LatLngBounds();
@@ -275,42 +239,13 @@ if ($result_num > 0) {
 	<div class="mapcontainer">
 	<div id="track-map" style="position: relative; background-color: rgb(229, 227, 223); overflow: hidden; -webkit-transform: translateZ(0px);"></div></div>';
 	
-	// // Display message if track map isn't available
-	// if (($row["FirstLatitude"] == 0) || ($row["FirstLongitude"] == 0) || ($row["LastLatitude"] == 0) || ($row["LastLongitude"] == 0)) {
-	// 	if ($row["Track"] == null) {
-	// 		echo '<div class="mapmsg">Aircraft was not broadcasting its position.</div>';
-	// 		echo '<script>$("#track-map").hide();</script>';
-	// 	} else { // Show the map drop-down menu
-	// 		echo '<script>window.onload = $(function () { $("#track_map_toolbar").show();});</script>';
-	// 	}
-	// } else { // Show the map drop-down menu
+
 		echo '<script>window.onload = $(function () { $("#track_map_toolbar").show();});</script>';
-	// }
 	echo '</div>';
 
 
 
-   //  <div id="route_map_toolbar" style="display: none;">
-   //    <form id="charts_form" class="charts_form" method="post">
-   //      <select id="menu_pulldown" class="mapButton" onChange="changeMapType(route_map)">
-   //        <optgroup label="VFR">
-			// <option selected value="vfrc">Hybrid VFR</option>
-   //          <option value="sec">Sectional</option>
-   //          <option value="tac">Terminal</option>
-   //          <option value="wac">WAC</option>
-   //        </optgroup>
-   //        <optgroup label="IFR">
-   //          <option value="enrl">Low IFR</option>
-   //          <option value="enrh">High IFR</option>
-   //        </optgroup>
-   //        <optgroup label="Google">
-   //          <option value="roadmap">Roadmap</option>
-   //          <option value="hybrid">Satellite</option>
-   //          <option value="terrain">Terrain</option>
-   //        </optgroup>
-   //      </select>
-   //    </form>
-   //  </div>
+
   echo '  
     <div id="track_map_toolbar" style="display: none;">
       <form id="charts_form2" class="charts_form" method="post">
@@ -378,22 +313,10 @@ window.onload = function() { ';
 		echo "];\n";
 		
 		echo 'showTrack(Track, new google.maps.LatLng(' . $trackFirstLatitude . ', ' . $trackFirstLongitude . '), new google.maps.LatLng(' . $trackLastLatitude . ', ' . $trackLastLongitude . '), track_map);';
-		// if (($row["FirstLatitude"] != 0) && ($row["FirstLongitude"] != 0) && ($row["LastLatitude"] != 0) && ($row["LastLongitude"] != 0)) {
-		// 	echo 'showLine(new google.maps.LatLng(' . $row["FirstLatitude"] . ', ' . $row["FirstLongitude"] . '), new google.maps.LatLng(' . $row["LastLatitude"] . ', ' . $row["LastLongitude"] . '), track_map, false); ';
-		// } else {
-		// 	echo 'showLine(new google.maps.LatLng(' . $trackFirstLatitude . ', ' . $trackFirstLongitude . '), new google.maps.LatLng(' . $trackLastLatitude . ', ' . $trackLastLongitude . '), track_map, false); ';
-		// }
+
 	}
 
-	// elseif (($row["FirstLatitude"] != 0) && ($row["FirstLongitude"] != 0) && ($row["LastLatitude"] != 0) && ($row["LastLongitude"] != 0)) {
-	// 	echo 'showLine(new google.maps.LatLng(' . $row["FirstLatitude"] . ', ' . $row["FirstLongitude"] . '), new google.maps.LatLng(' . $row["LastLatitude"] . ', ' . $row["LastLongitude"] . '), track_map, true); ';
-	// 	echo 'setBounds(new google.maps.LatLng(' . $row["FirstLatitude"] . ', ' . $row["FirstLongitude"] . '), new google.maps.LatLng(' . $row["LastLatitude"] . ', ' . $row["LastLongitude"] . '), track_map); ';
-	// }
 
-	// if ($row["FromLat"] != 0) {
-	// 	echo 'showLine(new google.maps.LatLng(' . $row["FromLat"] . ', ' . $row["FromLong"] . '), new google.maps.LatLng(' . $row["ToLat"] . ', ' . $row["ToLong"] . '), route_map, true); ';
-	// 	echo 'setBounds(new google.maps.LatLng(' . $row["FromLat"] . ', ' . $row["FromLong"] . '), new google.maps.LatLng(' . $row["ToLat"] . ', ' . $row["ToLong"] . '), route_map); ';
-	// }
 }
 echo ' } </script>';
 
